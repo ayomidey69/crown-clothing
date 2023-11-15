@@ -5,6 +5,8 @@ import { signInWithGooglePopup,createUserDocumentFromAuth,signInAuthUserWithEmai
 import FormInput from '../form-input/form-input.component';
 import './sign-in-form.styles.scss';
 import Button from '../button/button.component';
+
+
 const defaultFormFields ={
 
 email:'',
@@ -16,13 +18,15 @@ const SignInForm =()=>{
   const[formFields, setFormFields] = useState(defaultFormFields);
   const{ email, password} = formFields;
  
+  
+
   const resetFormFields=() =>{
     resetFormFields(defaultFormFields)
   }
 
   const signInWithGoogle = async ()=>{
-    const {user}= await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+   await signInWithGooglePopup();
+     
 };
 
 
@@ -32,8 +36,8 @@ const SignInForm =()=>{
 
    
    try{
-    const response = await signInAuthUserWithEmailAndPassword (email,password);
-    console.log(response);
+    await signInAuthUserWithEmailAndPassword (email,password);
+
     resetFormFields();
  } catch(error){
   switch (error.code) {
@@ -44,7 +48,7 @@ const SignInForm =()=>{
         alert('no user associated with this email');
         break;
         default:
-  console.log(error);
+  // console.log(error);
   }
  }
  
